@@ -8,7 +8,7 @@ buildscript {
     }
 }
 
-// gradle clean build jacocoTestReport projectReport
+// gradle clean buildDashboard build jacocoTestReport projectReport
 
 apply plugin: 'java'
 apply plugin: 'spring-boot'
@@ -16,6 +16,7 @@ apply plugin: 'pmd'
 apply plugin: 'checkstyle'
 apply plugin: 'jacoco'
 apply plugin: 'project-report'
+apply plugin: 'build-dashboard'
 
 sourceCompatibility = 1.8
 
