@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+    	mavenLocal()
+        maven { url 'http://repo.maven.apache.org/maven2' }
+    }
+    dependencies {
+        classpath 'org.springframework.boot:spring-boot-gradle-plugin:1.2.7.RELEASE'
+    }
+}
+
+// gradle clean build jacocoTestReport projectReport
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'pmd'
+apply plugin: 'checkstyle'
+apply plugin: 'jacoco'
+apply plugin: 'project-report'
+
+sourceCompatibility = 1.8
+
+repositories {
+	mavenLocal()
+	maven { url 'http://repo.maven.apache.org/maven2' }
+}
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-jdbc'
+    compile 'org.apache.derby:derby'
+    compile 'org.flywaydb:flyway-core:3.2.1'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+distTar {
+	compression Compression.GZIP
+}
+
+checkstyle {
+	toolVersion = '6.11.2'
+}
+
+jacoco {
+    toolVersion = '0.7.5.201505241946'
+}
+
