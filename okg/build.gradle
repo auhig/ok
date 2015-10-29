@@ -8,6 +8,10 @@ buildscript {
     }
 }
 
+plugins {
+  id 'net.researchgate.release' version '2.3.0'
+}
+
 // gradle clean buildDashboard build jacocoTestReport projectReport
 
 apply plugin: 'java'
@@ -31,6 +35,14 @@ dependencies {
     compile 'org.apache.derby:derby'
     compile 'org.flywaydb:flyway-core:3.2.1'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+release {
+	git {
+        requireBranch = 'master'
+        pushToRemote = 'origin'
+        pushToBranchPrefix = ''
+    }
 }
 
 distTar {
