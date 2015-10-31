@@ -8,6 +8,7 @@
 	<modules>
 		<module>ok-core</module>
     <module>ok-common</module>
+    <module>ok-ws</module>
   </modules>
 
 	<properties>
