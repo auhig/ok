@@ -1,0 +1,6 @@
+/.*
+!/.gitignore
+/data/
+/logs/
+/target/
+/derby.log
