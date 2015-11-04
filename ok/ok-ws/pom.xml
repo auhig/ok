@@ -13,13 +13,66 @@
 
 	<properties>
 		<spring.boot.version>1.2.7.RELEASE</spring.boot.version>
+		<wro4j.version>1.7.9</wro4j.version>
 	</properties>
 
 	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>ro.isdc.wro4j</groupId>
+										<artifactId>wro4j-maven-plugin</artifactId>
+										<versionRange>[1.0,)</versionRange>
+										<goals>
+											<goal>run</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>ro.isdc.wro4j</groupId>
+				<artifactId>wro4j-maven-plugin</artifactId>
+				<version>${wro4j.version}</version>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<!-- <phase>process-resources</phase> -->
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<minimize>true</minimize>
+					<wroManagerFactory>ro.isdc.wro.maven.plugin.manager.factory.ConfigurableWroManagerFactory</wroManagerFactory>
+					<!-- <destinationFolder>${basedir}/src/main/resources/static/</destinationFolder> -->
+					<destinationFolder>${basedir}/target/classes/static/</destinationFolder>
+					<contextFolder>${basedir}/src/main/resources/static/</contextFolder>
+					<wroFile>${basedir}/src/main/resources/wro.xml</wroFile>
+					<extraConfigFile>${basedir}/src/main/resources/wro.properties</extraConfigFile>
+					<ignoreMissingResources>false</ignoreMissingResources>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -43,10 +96,21 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.session</groupId>
+			<artifactId>spring-session</artifactId>
+			<version>1.0.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-redis</artifactId>
+		</dependency>
+		<!-- 
+		<dependency>
 			<groupId>h.ji</groupId>
 			<artifactId>ok-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		 -->
 		<!-- test dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
